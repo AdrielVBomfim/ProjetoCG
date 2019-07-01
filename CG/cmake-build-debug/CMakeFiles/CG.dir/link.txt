@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/CG.dir/projeto.cpp.o  -o CG -lglut -lGL -lGLU 
