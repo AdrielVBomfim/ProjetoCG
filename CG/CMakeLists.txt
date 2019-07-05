@@ -3,5 +3,12 @@ project(CG)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CG projeto.cpp)
-target_link_libraries(CG -lglut -lGL -lGLU)
+add_executable(CG
+                main.cpp
+                Sphere.cpp
+                Bmp.cpp
+                Sphere.h
+                Bmp.h
+            )
+
+target_link_libraries(CG -lGL -lGLU -lglut)

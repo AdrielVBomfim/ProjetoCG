@@ -223,6 +223,12 @@ ProcessorCount_cmd_getconf:FILEPATH=/usr/bin/getconf
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/sbin/sysctl
 
+//Value Computed by CMake
+TesteCG_BINARY_DIR:STATIC=/home/adriel/CLionProjects/CG/cmake-build-debug
+
+//Value Computed by CMake
+TesteCG_SOURCE_DIR:STATIC=/home/adriel/CLionProjects/CG
+
 
 ########################
 # INTERNAL cache entries

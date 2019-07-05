@@ -123,32 +123,86 @@ CG/fast:
 	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/build
 .PHONY : CG/fast
 
-projeto.o: projeto.cpp.o
+Bmp.o: Bmp.cpp.o
 
-.PHONY : projeto.o
+.PHONY : Bmp.o
 
 # target to build an object file
-projeto.cpp.o:
-	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/projeto.cpp.o
-.PHONY : projeto.cpp.o
+Bmp.cpp.o:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/Bmp.cpp.o
+.PHONY : Bmp.cpp.o
 
-projeto.i: projeto.cpp.i
+Bmp.i: Bmp.cpp.i
 
-.PHONY : projeto.i
+.PHONY : Bmp.i
 
 # target to preprocess a source file
-projeto.cpp.i:
-	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/projeto.cpp.i
-.PHONY : projeto.cpp.i
+Bmp.cpp.i:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/Bmp.cpp.i
+.PHONY : Bmp.cpp.i
 
-projeto.s: projeto.cpp.s
+Bmp.s: Bmp.cpp.s
 
-.PHONY : projeto.s
+.PHONY : Bmp.s
 
 # target to generate assembly for a file
-projeto.cpp.s:
-	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/projeto.cpp.s
-.PHONY : projeto.cpp.s
+Bmp.cpp.s:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/Bmp.cpp.s
+.PHONY : Bmp.cpp.s
+
+Sphere.o: Sphere.cpp.o
+
+.PHONY : Sphere.o
+
+# target to build an object file
+Sphere.cpp.o:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/Sphere.cpp.o
+.PHONY : Sphere.cpp.o
+
+Sphere.i: Sphere.cpp.i
+
+.PHONY : Sphere.i
+
+# target to preprocess a source file
+Sphere.cpp.i:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/Sphere.cpp.i
+.PHONY : Sphere.cpp.i
+
+Sphere.s: Sphere.cpp.s
+
+.PHONY : Sphere.s
+
+# target to generate assembly for a file
+Sphere.cpp.s:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/Sphere.cpp.s
+.PHONY : Sphere.cpp.s
+
+main.o: main.cpp.o
+
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/CG.dir/build.make CMakeFiles/CG.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -159,9 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... CG"
 	@echo "... edit_cache"
-	@echo "... projeto.o"
-	@echo "... projeto.i"
-	@echo "... projeto.s"
+	@echo "... Bmp.o"
+	@echo "... Bmp.i"
+	@echo "... Bmp.s"
+	@echo "... Sphere.o"
+	@echo "... Sphere.i"
+	@echo "... Sphere.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

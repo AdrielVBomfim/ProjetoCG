@@ -57,30 +57,60 @@ include CMakeFiles/CG.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/CG.dir/flags.make
 
-CMakeFiles/CG.dir/projeto.cpp.o: CMakeFiles/CG.dir/flags.make
-CMakeFiles/CG.dir/projeto.cpp.o: ../projeto.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CG.dir/projeto.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CG.dir/projeto.cpp.o -c /home/adriel/CLionProjects/CG/projeto.cpp
+CMakeFiles/CG.dir/main.cpp.o: CMakeFiles/CG.dir/flags.make
+CMakeFiles/CG.dir/main.cpp.o: ../main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CG.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CG.dir/main.cpp.o -c /home/adriel/CLionProjects/CG/main.cpp
 
-CMakeFiles/CG.dir/projeto.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CG.dir/projeto.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adriel/CLionProjects/CG/projeto.cpp > CMakeFiles/CG.dir/projeto.cpp.i
+CMakeFiles/CG.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CG.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adriel/CLionProjects/CG/main.cpp > CMakeFiles/CG.dir/main.cpp.i
 
-CMakeFiles/CG.dir/projeto.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CG.dir/projeto.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adriel/CLionProjects/CG/projeto.cpp -o CMakeFiles/CG.dir/projeto.cpp.s
+CMakeFiles/CG.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CG.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adriel/CLionProjects/CG/main.cpp -o CMakeFiles/CG.dir/main.cpp.s
+
+CMakeFiles/CG.dir/Sphere.cpp.o: CMakeFiles/CG.dir/flags.make
+CMakeFiles/CG.dir/Sphere.cpp.o: ../Sphere.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CG.dir/Sphere.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CG.dir/Sphere.cpp.o -c /home/adriel/CLionProjects/CG/Sphere.cpp
+
+CMakeFiles/CG.dir/Sphere.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CG.dir/Sphere.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adriel/CLionProjects/CG/Sphere.cpp > CMakeFiles/CG.dir/Sphere.cpp.i
+
+CMakeFiles/CG.dir/Sphere.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CG.dir/Sphere.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adriel/CLionProjects/CG/Sphere.cpp -o CMakeFiles/CG.dir/Sphere.cpp.s
+
+CMakeFiles/CG.dir/Bmp.cpp.o: CMakeFiles/CG.dir/flags.make
+CMakeFiles/CG.dir/Bmp.cpp.o: ../Bmp.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CG.dir/Bmp.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CG.dir/Bmp.cpp.o -c /home/adriel/CLionProjects/CG/Bmp.cpp
+
+CMakeFiles/CG.dir/Bmp.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CG.dir/Bmp.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/adriel/CLionProjects/CG/Bmp.cpp > CMakeFiles/CG.dir/Bmp.cpp.i
+
+CMakeFiles/CG.dir/Bmp.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CG.dir/Bmp.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/adriel/CLionProjects/CG/Bmp.cpp -o CMakeFiles/CG.dir/Bmp.cpp.s
 
 # Object files for target CG
 CG_OBJECTS = \
-"CMakeFiles/CG.dir/projeto.cpp.o"
+"CMakeFiles/CG.dir/main.cpp.o" \
+"CMakeFiles/CG.dir/Sphere.cpp.o" \
+"CMakeFiles/CG.dir/Bmp.cpp.o"
 
 # External object files for target CG
 CG_EXTERNAL_OBJECTS =
 
-CG: CMakeFiles/CG.dir/projeto.cpp.o
+CG: CMakeFiles/CG.dir/main.cpp.o
+CG: CMakeFiles/CG.dir/Sphere.cpp.o
+CG: CMakeFiles/CG.dir/Bmp.cpp.o
 CG: CMakeFiles/CG.dir/build.make
 CG: CMakeFiles/CG.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable CG"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable CG"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CG.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

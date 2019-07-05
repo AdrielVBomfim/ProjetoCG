@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/CG.dir/projeto.cpp.o"
+  "CMakeFiles/CG.dir/main.cpp.o"
+  "CMakeFiles/CG.dir/Sphere.cpp.o"
+  "CMakeFiles/CG.dir/Bmp.cpp.o"
   "CG.pdb"
   "CG"
 )

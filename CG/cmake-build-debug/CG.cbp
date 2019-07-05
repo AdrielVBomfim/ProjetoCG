@@ -84,7 +84,19 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/adriel/CLionProjects/CG/projeto.cpp">
+		<Unit filename="/home/adriel/CLionProjects/CG/Bmp.cpp">
+			<Option target="CG"/>
+		</Unit>
+		<Unit filename="/home/adriel/CLionProjects/CG/Bmp.h">
+			<Option target="CG"/>
+		</Unit>
+		<Unit filename="/home/adriel/CLionProjects/CG/Sphere.cpp">
+			<Option target="CG"/>
+		</Unit>
+		<Unit filename="/home/adriel/CLionProjects/CG/Sphere.h">
+			<Option target="CG"/>
+		</Unit>
+		<Unit filename="/home/adriel/CLionProjects/CG/main.cpp">
 			<Option target="CG"/>
 		</Unit>
 		<Unit filename="/home/adriel/CLionProjects/CG/CMakeLists.txt">
