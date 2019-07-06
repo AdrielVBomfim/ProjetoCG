@@ -1,3 +1,0 @@
-/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles/CG.dir
-/home/adriel/CLionProjects/CG/cmake-build-debug/CMakeFiles/edit_cache.dir

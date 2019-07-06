@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/TesteCG.dir/main.cpp.o CMakeFiles/TesteCG.dir/Sphere.cpp.o CMakeFiles/TesteCG.dir/Bmp.cpp.o  -o TesteCG -lGL -lGLU -lglut 

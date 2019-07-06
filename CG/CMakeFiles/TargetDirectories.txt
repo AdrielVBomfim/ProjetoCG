@@ -1,3 +1,0 @@
-/home/lucas/ProjetoCG/CG/CMakeFiles/rebuild_cache.dir
-/home/lucas/ProjetoCG/CG/CMakeFiles/edit_cache.dir
-/home/lucas/ProjetoCG/CG/CMakeFiles/CG.dir
