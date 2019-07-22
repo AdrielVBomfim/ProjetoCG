@@ -27,12 +27,17 @@ Sphere *spherePtr;
 GLuint texId, texIdSun;
 
 //Variáveis de posição da câmera
-float posCameraX,posCameraY,posCameraZ;
+float posCameraX, posCameraY, posCameraZ;
+float pontoRefX, pontoRefY, pontoRefZ;
+float teta, fi;
+float raioCamera;
 
 //Argumento correspondente ao raio do planeta
 GLdouble arg1;
 //Argumentos correspondentes à posição x, y e z do Sol
-GLfloat luz_pontual[] = {1.0, 1.0, 1.0, 1.0 };
+GLfloat luz_pontual[] = {1.0, 1.0, 1.0, 1.0};
+
+float angulo = 2*M_PI/360;
 
 void iluminar(){
     //LU1.0
@@ -158,24 +163,79 @@ void init(void)
     //posCameraY = 0.1;
     //posCameraZ = 0;
 
-    posCameraX = -2;
-    posCameraY = 2;
-    posCameraZ = 2;
+    raioCamera = arg1 + 0.05;
+
+    posCameraX = raioCamera;
+    posCameraY = 0.0;
+    posCameraZ = 0.0;
+
+    teta = 0.0;
+    fi = M_PI/2;
+
+    pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
+    pontoRefY = 0.0;
+    pontoRefZ = raioCamera * cos(fi + angulo);
+
 }
 
 void specialKeys(int key, int x, int y)
 {
-    float angulo = 2*M_PI/180;
-    switch (key) {
-        case GLUT_KEY_LEFT :
-            posCameraX =  posCameraX*cos(-angulo) + posCameraZ*sin(-angulo);
-            posCameraZ = -posCameraX*sin(-angulo) + posCameraZ*cos(-angulo);
-            break;
-        case GLUT_KEY_RIGHT :
-            posCameraX =  posCameraX*cos(angulo) + posCameraZ*sin(angulo);
-            posCameraZ = -posCameraX*sin(angulo) + posCameraZ*cos(angulo);
-            break;
+    if(key == GLUT_KEY_UP){                 //Acelerar
+        fi += angulo;
+
+        posCameraX = raioCamera * cos(teta) * sin(fi);
+        posCameraY = raioCamera * sin(teta) * sin(fi);
+        posCameraZ = raioCamera * cos(fi);
+        pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
+        pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
+        pontoRefZ = raioCamera * cos(fi + angulo);
     }
+    else if(key == GLUT_KEY_DOWN){         //Desacelerar
+        fi -= angulo;
+
+        pontoRefX = posCameraX;
+        pontoRefY = posCameraY;
+        pontoRefZ = posCameraZ;
+        posCameraX =  raioCamera * cos(teta) * sin(fi);
+        posCameraY =  raioCamera * sin(teta) * sin(fi);
+        posCameraZ = raioCamera * cos(fi);
+    }
+    else if(key == GLUT_KEY_PAGE_UP){           //Decolar
+        raioCamera += 0.001;
+
+        posCameraX = raioCamera * cos(teta) * sin(fi);
+        posCameraY = raioCamera * sin(teta) * sin(fi);
+        posCameraZ = raioCamera * cos(fi);
+        pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
+        pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
+        pontoRefZ = raioCamera * cos(fi + angulo);
+    }
+    else if(key == GLUT_KEY_PAGE_DOWN){         //Aterrissar
+        raioCamera -= 0.001;
+
+        posCameraX = raioCamera * cos(teta) * sin(fi);
+        posCameraY = raioCamera * sin(teta) * sin(fi);
+        posCameraZ = raioCamera * cos(fi);
+        pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
+        pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
+        pontoRefZ = raioCamera * cos(fi + angulo);
+    }
+    /*else if(key == GLUT_KEY_LEFT){          // Girar para a esquerda
+        pontoRefX = raioCamera * cos(teta - angulo) * sin(fi + angulo);
+        pontoRefY = raioCamera * sin(teta - angulo) * sin(fi + angulo);
+        pontoRefZ = raioCamera * cos(fi + angulo);
+
+        teta -= angulo;
+
+    }*/
+    /*else if(key == GLUT_KEY_RIGHT){             // Girar para a esquerda
+        pontoRefX = raioCamera * cos(teta + angulo) * sin(fi + angulo);
+        pontoRefY = raioCamera * sin(teta + angulo) * sin(fi + angulo);
+        pontoRefZ = raioCamera * cos(fi + angulo);
+
+        teta += angulo;
+    }*/
+
     glutPostRedisplay();
 }
 
@@ -183,14 +243,13 @@ void specialKeys(int key, int x, int y)
 // move na cena é a câmera?
 void display(void)
 {
-
     //limpeza do zbuffer deve ser feita a cada desenho da tela
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    gluLookAt (posCameraX, posCameraY, posCameraZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt (posCameraX, posCameraY, posCameraZ, pontoRefX, pontoRefY, pontoRefZ, posCameraX, posCameraY, posCameraZ);
     glLightfv(GL_LIGHT0, GL_POSITION, luz_pontual);
 
     desenhar_luz();
@@ -209,7 +268,7 @@ void reshape(int w, int h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     //glOrtho(-3.0 * arg1, 3.0 * arg1, -3.0 * arg1, 3.0 * arg1, -3.0 * arg1, 3.0 * arg1);
-    gluPerspective(50.0, 1.0, 0.5, 10);
+    gluPerspective(90.0, 1.0, 0.001, 10);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -301,7 +360,7 @@ int main(int argc, char** argv)
     //Inicialização dozbuffer
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH  | GLUT_STENCIL);
 
-    glutInitWindowSize (600, 600);
+    glutInitWindowSize (800, 800);
     glutInitWindowPosition (100, 100);
     glutCreateWindow (argv[0]);
 
