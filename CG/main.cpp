@@ -33,6 +33,9 @@ float pontoRefX, pontoRefY, pontoRefZ;
 float teta, fi;
 float raioCamera;
 float anguloMoon = 0.0;
+float velocidade = 0.001;
+float velocidadeLua = 0.5;
+bool decolar, pousar, turn_left, turn_right;
 
 //Argumento correspondente ao raio do planeta
 GLdouble arg1;
@@ -40,6 +43,12 @@ GLdouble arg1;
 GLfloat luz_pontual[] = {1.0, 1.0, 1.0, 1.0};
 
 float angulo = 2*M_PI/360;
+
+float ALT_MIN;
+float ALT_MAX;
+float VEL_CRUZEIRO = 0.005;
+float VEL_MAX = 0.008;
+float COEF_GIRO = 3;
 
 void iluminar(){
     //LU1.0
@@ -195,7 +204,107 @@ void desenhar_moon(){
 }
 
 void spin(void){
-    anguloMoon += 0.2;
+
+    if(decolar){
+     if(raioCamera < ALT_MAX) {
+         raioCamera += 0.001;
+         velocidade += 0.0001;
+         if(velocidade > VEL_CRUZEIRO) velocidade = VEL_CRUZEIRO;
+     }
+     else {
+         decolar = false;
+         raioCamera = ALT_MAX;
+     }
+    }if(pousar){
+        if(raioCamera > ALT_MIN) {
+            raioCamera -= 0.001;
+            velocidade -= 0.0001;
+            if(velocidade < 0) velocidade = 0;
+        }
+        else {
+            raioCamera = ALT_MIN;
+            pousar = false;
+            velocidade = 0;
+        }
+    }
+
+    float versorDesl[] = {pontoRefX-posCameraX, pontoRefY-posCameraY, pontoRefZ-posCameraZ};
+    float vetorDirecao[] = {posCameraY*versorDesl[2]-posCameraZ*versorDesl[1],
+                            posCameraZ*versorDesl[0]-posCameraX*versorDesl[2],
+                            posCameraX*versorDesl[1]-posCameraY*versorDesl[0]};
+
+    float giro = COEF_GIRO*(1-(velocidade/VEL_MAX)*0.6);
+    if(turn_left){
+        versorDesl[0] += vetorDirecao[0]*giro;
+        versorDesl[1] += vetorDirecao[1]*giro;
+        versorDesl[2] += vetorDirecao[2]*giro;
+        turn_left = false;
+    }if(turn_right){
+        versorDesl[0] -= vetorDirecao[0]*giro;
+        versorDesl[1] -= vetorDirecao[1]*giro;
+        versorDesl[2] -= vetorDirecao[2]*giro;
+        turn_right = false;
+    }
+
+
+    float fator = sqrt(versorDesl[0]*versorDesl[0]+versorDesl[1]*versorDesl[1]+versorDesl[2]*versorDesl[2]);
+    versorDesl[0] = versorDesl[0]/fator;
+    versorDesl[1] = versorDesl[1]/fator;
+    versorDesl[2] = versorDesl[2]/fator;
+
+    posCameraX += versorDesl[0]*velocidade;
+    posCameraY += versorDesl[1]*velocidade;
+    posCameraZ += versorDesl[2]*velocidade;
+
+    pontoRefX += versorDesl[0]*velocidade;
+    pontoRefY += versorDesl[1]*velocidade;
+    pontoRefZ += versorDesl[2]*velocidade;
+
+    if(posCameraX != 0) teta = atan(posCameraY/posCameraX);
+    else teta = 0;
+    float numerador = sqrt(pow(posCameraX,2)+pow(posCameraY,2));
+    if(posCameraZ != 0) fi = atan(numerador/posCameraZ);
+    else fi = 0;
+
+    if(posCameraX > 0 && posCameraZ < 0) fi+=M_PI;
+    if(posCameraX < 0 && posCameraZ < 0) fi+=M_PI;
+    if(posCameraX < 0 && posCameraZ > 0) fi+=2*M_PI;
+
+    if(posCameraX < 0 && posCameraY > 0) teta+=M_PI;
+    if(posCameraX < 0 && posCameraY < 0) teta+=M_PI;
+    if(posCameraX > 0 && posCameraY < 0) teta+=2*M_PI;
+
+    //std::cout << "Versor: "<< versorDesl[0]<<" "<<versorDesl[1]<<" "<<versorDesl[2] << "\n";
+//    std::cout << "-------------------\n";
+//    std::cout << "Pos XYZ transl: " << posCameraX << " " << posCameraY << " " << posCameraZ<< "\n";
+//    std::cout << "Center XYZ transl: " << pontoRefX << " " << pontoRefY << " " << pontoRefZ<< "\n";
+//    std::cout << "Teta: " << teta << " Phi: " << fi<< "\n";
+
+    posCameraX = raioCamera * sin(fi) * cos(teta);
+    posCameraY = raioCamera * sin(fi) * sin(teta);
+    posCameraZ = raioCamera * cos(fi);
+
+    if(pontoRefX != 0) teta = atan(pontoRefY/pontoRefX);
+    else teta = 0;
+    numerador = sqrt(pow(pontoRefX,2)+pow(pontoRefY,2));
+    if(pontoRefZ != 0) fi = atan(numerador/pontoRefZ);
+    else fi = 0;
+
+    if(pontoRefX > 0 && pontoRefZ < 0) fi+=M_PI;
+    if(pontoRefX < 0 && pontoRefZ < 0) fi+=M_PI;
+    if(pontoRefX < 0 && pontoRefZ > 0) fi+=2*M_PI;
+
+    if(pontoRefX < 0 && pontoRefY > 0) teta+=M_PI;
+    if(pontoRefX < 0 && pontoRefY < 0) teta+=M_PI;
+    if(pontoRefX > 0 && pontoRefY < 0) teta+=2*M_PI;
+
+//    std::cout << "Center Teta: " << teta << " Phi: " << fi<< "\n";
+
+    pontoRefX = raioCamera * sin(fi) * cos(teta);
+    pontoRefY = raioCamera * sin(fi) * sin(teta);
+    pontoRefZ = raioCamera * cos(fi);
+
+    anguloMoon += velocidadeLua;
     if(anguloMoon >= 360)
         anguloMoon = 0;
     glutPostRedisplay();
@@ -226,69 +335,35 @@ void init(void)
     teta = 0.0;
     fi = M_PI/2;
 
-    pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
-    pontoRefY = 0.0;
-    pontoRefZ = raioCamera * cos(fi + angulo);
+    pontoRefX = raioCamera;//raioCamera * cos(teta) * sin(fi + angulo);
+    pontoRefY = 0.1;
+    pontoRefZ = 0.1;// * cos(fi + angulo);
 
 }
 
 void specialKeys(int key, int x, int y)
 {
     if(key == GLUT_KEY_UP){                 //Acelerar
-        fi += angulo;
-
-        posCameraX = raioCamera * cos(teta) * sin(fi);
-        posCameraY = raioCamera * sin(teta) * sin(fi);
-        posCameraZ = raioCamera * cos(fi);
-        pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
-        pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
-        pontoRefZ = raioCamera * cos(fi + angulo);
+        if(raioCamera > ALT_MIN) velocidade += 0.001;
+        if(velocidade > VEL_MAX) velocidade = VEL_MAX;
     }
     else if(key == GLUT_KEY_DOWN){         //Desacelerar
-        fi -= angulo;
-
-        pontoRefX = posCameraX;
-        pontoRefY = posCameraY;
-        pontoRefZ = posCameraZ;
-        posCameraX =  raioCamera * cos(teta) * sin(fi);
-        posCameraY =  raioCamera * sin(teta) * sin(fi);
-        posCameraZ = raioCamera * cos(fi);
+        velocidade -= 0.001;
+        if (velocidade < 0) velocidade = 0;
+        if (velocidade == 0) pousar = true;
     }
     else if(key == GLUT_KEY_PAGE_UP){           //Decolar
-        raioCamera += 0.001;
-
-        posCameraX = raioCamera * cos(teta) * sin(fi);
-        posCameraY = raioCamera * sin(teta) * sin(fi);
-        posCameraZ = raioCamera * cos(fi);
-        pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
-        pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
-        pontoRefZ = raioCamera * cos(fi + angulo);
+        decolar = true;
     }
     else if(key == GLUT_KEY_PAGE_DOWN){         //Aterrissar
-        raioCamera -= 0.001;
-
-        posCameraX = raioCamera * cos(teta) * sin(fi);
-        posCameraY = raioCamera * sin(teta) * sin(fi);
-        posCameraZ = raioCamera * cos(fi);
-        pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
-        pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
-        pontoRefZ = raioCamera * cos(fi + angulo);
+        pousar = true;
     }
-    /*else if(key == GLUT_KEY_LEFT){          // Girar para a esquerda
-        pontoRefX = raioCamera * cos(teta - angulo) * sin(fi + angulo);
-        pontoRefY = raioCamera * sin(teta - angulo) * sin(fi + angulo);
-        pontoRefZ = raioCamera * cos(fi + angulo);
-
-        teta -= angulo;
-
-    }*/
-    /*else if(key == GLUT_KEY_RIGHT){             // Girar para a esquerda
-        pontoRefX = raioCamera * cos(teta + angulo) * sin(fi + angulo);
-        pontoRefY = raioCamera * sin(teta + angulo) * sin(fi + angulo);
-        pontoRefZ = raioCamera * cos(fi + angulo);
-
-        teta += angulo;
-    }*/
+    else if(key == GLUT_KEY_LEFT){          // Girar para a esquerda
+        turn_left = true;
+    }
+    else if(key == GLUT_KEY_RIGHT){             // Girar para a esquerda
+        turn_right = true;
+    }
 
     glutPostRedisplay();
 }
@@ -328,7 +403,7 @@ void reshape(int w, int h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     //glOrtho(-3.0 * arg1, 3.0 * arg1, -3.0 * arg1, 3.0 * arg1, -3.0 * arg1, 3.0 * arg1);
-    gluPerspective(90.0, 1.0, 0.001, 10);
+    gluPerspective(70.0, 10/8, 0.001, 10);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -411,16 +486,18 @@ int main(int argc, char** argv)
     luz_pontual[0] = std::atof(argv[2]);
     luz_pontual[1] = std::atof(argv[3]);
     luz_pontual[2] = std::atof(argv[4]);
+    ALT_MIN = arg1+0.005;
+    ALT_MAX = arg1+0.05;
 
 
-    Sphere sphere1(arg1, 100, 100, false);    // radius, sectors, stacks, non-smooth (flat) shading
+    Sphere sphere1(arg1, 200, 200, false);    // radius, sectors, stacks, non-smooth (flat) shading
     spherePtr = &sphere1;
 
     glutInit(&argc, argv);
     //Inicialização dozbuffer
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH  | GLUT_STENCIL);
 
-    glutInitWindowSize (800, 800);
+    glutInitWindowSize (1000, 800);
     glutInitWindowPosition (100, 100);
     glutCreateWindow (argv[0]);
 
