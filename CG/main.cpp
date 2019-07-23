@@ -37,7 +37,8 @@ GLdouble arg1;
 //Argumentos correspondentes à posição x, y e z do Sol
 GLfloat luz_pontual[] = {1.0, 1.0, 1.0, 1.0};
 
-float angulo = 2*M_PI/360;
+double velocidade = 0.0;           //De 0 até 0.0006         intervalo: 0.00001
+double angulo = M_PI/11520;
 
 void iluminar(){
     //LU1.0
@@ -180,25 +181,13 @@ void init(void)
 
 void specialKeys(int key, int x, int y)
 {
-    if(key == GLUT_KEY_UP){                 //Acelerar
-        fi += angulo;
-
-        posCameraX = raioCamera * cos(teta) * sin(fi);
-        posCameraY = raioCamera * sin(teta) * sin(fi);
-        posCameraZ = raioCamera * cos(fi);
-        pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
-        pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
-        pontoRefZ = raioCamera * cos(fi + angulo);
+    if(key == GLUT_KEY_UP && velocidade < 0.0006){                 //Acelerar
+        velocidade += 0.00001;
+        angulo += velocidade;
     }
-    else if(key == GLUT_KEY_DOWN){         //Desacelerar
-        fi -= angulo;
-
-        pontoRefX = posCameraX;
-        pontoRefY = posCameraY;
-        pontoRefZ = posCameraZ;
-        posCameraX =  raioCamera * cos(teta) * sin(fi);
-        posCameraY =  raioCamera * sin(teta) * sin(fi);
-        posCameraZ = raioCamera * cos(fi);
+    else if(key == GLUT_KEY_DOWN && velocidade > 0.0){         //Desacelerar
+        velocidade -= 0.00001;
+        angulo -= velocidade;
     }
     else if(key == GLUT_KEY_PAGE_UP){           //Decolar
         raioCamera += 0.001;
@@ -340,6 +329,19 @@ GLuint loadTexture(const char* fileName, bool wrap)
     return texture;
 }
 
+void processarDeslocamento(){
+    fi += angulo;
+
+    posCameraX = raioCamera * cos(teta) * sin(fi);
+    posCameraY = raioCamera * sin(teta) * sin(fi);
+    posCameraZ = raioCamera * cos(fi);
+    pontoRefX = raioCamera * cos(teta) * sin(fi + angulo);
+    pontoRefY = raioCamera * sin(teta) * sin(fi + angulo);
+    pontoRefZ = raioCamera * cos(fi + angulo);
+
+    glutPostRedisplay();
+}
+
 int main(int argc, char** argv)
 {
     std::cout << "Programa iniciado";
@@ -369,6 +371,7 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);
     glutSpecialFunc(specialKeys);
     glutReshapeFunc(reshape);
+    glutIdleFunc(processarDeslocamento);
 
     texId = loadTexture("earth2048.bmp", true);
     texIdSun = loadTexture("2k_sun.bmp", true);
