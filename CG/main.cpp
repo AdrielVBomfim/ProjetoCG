@@ -62,7 +62,7 @@ void iluminar(){
     //fonte de luz direcional (por que w==0?)
     GLfloat light0_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light0_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat light0_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+    GLfloat light0_ambient[] = { 0.8, 0.8, 0.8, 1.0 };
     //atribui características para a fonte de luz 0
     //cor padrão: branco
     glLightfv(GL_LIGHT0, GL_POSITION, luz_pontual);
