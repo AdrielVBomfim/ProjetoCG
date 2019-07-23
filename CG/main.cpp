@@ -24,13 +24,15 @@
 #include "Sphere.h"
 
 Sphere *spherePtr;
-GLuint texId, texIdSun;
+GLuint texId, texIdSun, texUniverse, texMoon;
+Sphere universe(5, 60, 60, false);
 
 //Variáveis de posição da câmera
 float posCameraX, posCameraY, posCameraZ;
 float pontoRefX, pontoRefY, pontoRefZ;
 float teta, fi;
 float raioCamera;
+float anguloMoon = 0.0;
 
 //Argumento correspondente ao raio do planeta
 GLdouble arg1;
@@ -118,7 +120,7 @@ void desenhar_eixos(){
 }
 
 //desenha objeto
-void desenhar_objeto(){
+void desenhar_planeta(){
     //MATERIAL
     //define características para aparência do material
     //exercício: testar exemplos da seção
@@ -145,7 +147,59 @@ void desenhar_objeto(){
     glPopAttrib();
 }
 
+//desenha esfera com textura de estrelas + via láctea
+void desenhar_universe(){
+    glPushAttrib (GL_LIGHTING_BIT);
 
+    GLfloat mat_diffuse[] = { 1.0, 0.0, 1.0, 1.0 };
+    GLfloat mat_emission[] = { 1.0, 1.0, 1.0, 1.0 };
+    //atribui características ao material
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_diffuse);
+
+    glPushMatrix();
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texUniverse);
+    universe.draw();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_LIGHTING);
+
+    glPopAttrib();
+    glPopMatrix();
+}
+//desenha a lua
+void desenhar_moon(){
+    glPushAttrib (GL_LIGHTING_BIT);
+    GLfloat mat_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_emission[] = { 0.0, 0.0, 0.0, 1.0 };
+    //atribui características ao material
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_diffuse);
+    glPushMatrix();
+    GLdouble posMoon = arg1 + 0.08;
+    glRotatef(anguloMoon, 0, 1, 0);
+    glTranslatef(posMoon,0,posMoon);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texMoon);
+    Sphere moon(0.04f, 60, 60, false);
+    moon.draw();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_LIGHTING);
+    glPopAttrib();
+    glPopMatrix();
+}
+
+void spin(void){
+    anguloMoon += 0.2;
+    if(anguloMoon >= 360)
+        anguloMoon = 0;
+    glutPostRedisplay();
+}
 
 void init(void)
 {
@@ -252,10 +306,16 @@ void display(void)
     gluLookAt (posCameraX, posCameraY, posCameraZ, pontoRefX, pontoRefY, pontoRefZ, posCameraX, posCameraY, posCameraZ);
     glLightfv(GL_LIGHT0, GL_POSITION, luz_pontual);
 
-    desenhar_luz();
-    desenhar_eixos();
+    glutIdleFunc(spin);
 
-    desenhar_objeto();
+    desenhar_luz();
+    //desenhar_eixos();
+
+
+    desenhar_planeta();
+
+    desenhar_universe();
+    desenhar_moon();
 
     glPopMatrix();
     glutSwapBuffers();
@@ -353,7 +413,7 @@ int main(int argc, char** argv)
     luz_pontual[2] = std::atof(argv[4]);
 
 
-    Sphere sphere1(arg1, 60, 60, false);    // radius, sectors, stacks, non-smooth (flat) shading
+    Sphere sphere1(arg1, 100, 100, false);    // radius, sectors, stacks, non-smooth (flat) shading
     spherePtr = &sphere1;
 
     glutInit(&argc, argv);
@@ -370,8 +430,10 @@ int main(int argc, char** argv)
     glutSpecialFunc(specialKeys);
     glutReshapeFunc(reshape);
 
-    texId = loadTexture("earth2048.bmp", true);
+    texId = loadTexture("8k_earth.bmp", true);
     texIdSun = loadTexture("2k_sun.bmp", true);
+    texMoon = loadTexture("2k_moon.bmp", true);
+    texUniverse = loadTexture("2k_stars_milky_way.bmp", true);
 
     glutMainLoop();
 

@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vitor/Documentos/ProjetoCG/CG/Bmp.h
+string
+-
+
+/home/vitor/Documentos/ProjetoCG/CG/Sphere.h
+vector
+-
+
+/home/vitor/Documentos/ProjetoCG/CG/main.cpp
+GL/gl.h
+-
+GL/glu.h
+-
+GL/glut.h
+-
+math.h
+-
+stdio.h
+-
+iostream
+-
+sstream
+-
+iomanip
+-
+fstream
+-
+Bmp.h
+/home/vitor/Documentos/ProjetoCG/CG/Bmp.h
+Sphere.h
+/home/vitor/Documentos/ProjetoCG/CG/Sphere.h
+
