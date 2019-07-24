@@ -23,6 +23,11 @@
 #include "Bmp.h"
 #include "Sphere.h"
 
+//ÁUDIO
+#include "include/irrKlang.h"
+
+irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
+
 Sphere *spherePtr;
 GLuint texId, texIdSun, texUniverse, texMoon;
 Sphere universe(5, 60, 60, false);
@@ -312,6 +317,7 @@ void spin(void){
 
 void init(void)
 {
+    engine->play2D("starscape.wav", GL_TRUE);
     glClearColor (0.0, 0.0, 0.0, 0.0);
 
     //configura iluminação
@@ -513,6 +519,7 @@ int main(int argc, char** argv)
     texUniverse = loadTexture("2k_stars_milky_way.bmp", true);
 
     glutMainLoop();
+    engine->drop();
 
     return 0;
 }

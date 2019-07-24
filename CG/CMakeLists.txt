@@ -9,6 +9,9 @@ add_executable(CG
                 Bmp.cpp
                 Sphere.h
                 Bmp.h
+                bin/libIrrKlang.so
+                include/irrKlang.h
             )
 
-target_link_libraries(CG -lGL -lGLU -lglut)
+
+target_link_libraries(CG -lGL -lGLU -lglut -pthread ${CMAKE_SOURCE_DIR}/bin/libIrrKlang.so)
