@@ -14,6 +14,7 @@
 #include <GL/glut.h>
 #include <math.h>
 #include <stdio.h>
+#include <limits>
 
 //ESFERA
 #include <iostream>
