@@ -1,3 +1,0 @@
-/home/vitor/Documentos/ProjetoCG/CG/CMakeFiles/rebuild_cache.dir
-/home/vitor/Documentos/ProjetoCG/CG/CMakeFiles/CG.dir
-/home/vitor/Documentos/ProjetoCG/CG/CMakeFiles/edit_cache.dir

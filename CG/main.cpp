@@ -259,7 +259,7 @@ void spin(void){
 
 void init(void)
 {
-    engine->play2D("starscape.wav", GL_TRUE);
+    engine->play2D("media/sound/starscape.wav", GL_TRUE);
     glClearColor (0.0, 0.0, 0.0, 0.0);
 
     //configura iluminação
@@ -462,10 +462,10 @@ int main(int argc, char** argv)
     glutSpecialFunc(specialKeys);
     glutReshapeFunc(reshape);
 
-    texId = loadTexture("8k_earth.bmp", true);
-    texIdSun = loadTexture("2k_sun.bmp", true);
-    texMoon = loadTexture("2k_moon.bmp", true);
-    texUniverse = loadTexture("8k_stars_milky_way.bmp", true);
+    texId = loadTexture("media/textures/hi_res/8k_earth.bmp", true);
+    texIdSun = loadTexture("media/textures/2k_sun.bmp", true);
+    texMoon = loadTexture("media/textures/2k_moon.bmp", true);
+    texUniverse = loadTexture("media/textures/hi_res/8k_stars_milky_way.bmp", true);
 
     glutMainLoop();
     engine->drop();
