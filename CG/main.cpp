@@ -299,9 +299,15 @@ void specialKeys(int key, int x, int y)
         if (velocidade == 0) pousar = true;
     }
     else if(key == GLUT_KEY_PAGE_UP){           //Decolar
+        if(pousar == true)
+            pousar = false;
+
         decolar = true;
     }
     else if(key == GLUT_KEY_PAGE_DOWN){         //Aterrissar
+        if(decolar == true)
+            decolar = false;
+
         pousar = true;
     }
     else if(key == GLUT_KEY_LEFT){          // Girar para a esquerda
