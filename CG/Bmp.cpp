@@ -55,6 +55,7 @@ Bmp::Bmp(const Bmp &rhs)
 
     if(rhs.getData())       // allocate memory only if the pointer is not NULL
     {
+        printf("foi1");
         data = new unsigned char[dataSize];
         memcpy(data, rhs.getData(), dataSize); // deep copy
     }
@@ -63,6 +64,7 @@ Bmp::Bmp(const Bmp &rhs)
 
     if(rhs.getDataRGB())    // allocate memory only if the pointer is not NULL
     {
+        printf("foi2");
         dataRGB = new unsigned char[dataSize];
         memcpy(dataRGB, rhs.getDataRGB(), dataSize); // deep copy
     }

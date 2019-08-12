@@ -23,13 +23,17 @@
 #include <iomanip>
 #include <cmath>
 #include "Sphere.h"
-
+#include "Bmp.h"
+#include <cstring>
+#include <string.h>
 
 
 // constants //////////////////////////////////////////////////////////////////
 const int MIN_SECTOR_COUNT = 3;
 const int MIN_STACK_COUNT  = 2;
+const int COEF_ALT = 80;         // Coeficiente de atenuação de altura
 
+unsigned int maior;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -237,6 +241,17 @@ void Sphere::buildVerticesSmooth()
     float stackStep = PI / stackCount;
     float sectorAngle, stackAngle;
 
+    //Inicio - Leitura de heightmap
+    Image::Bmp bmp;
+
+    if(!bmp.read("media/textures/hi_res/earthGrayscale.bmp"))
+        return;     // exit if failed load image
+
+    unsigned char *data = new unsigned char[bmp.getDataSize()];
+    memcpy(data, bmp.getData(), bmp.getDataSize());
+
+    //Fim
+
     for(int i = 0; i <= stackCount; ++i)
     {
         stackAngle = PI / 2 - i * stackStep;        // starting from pi/2 to -pi/2
@@ -252,18 +267,24 @@ void Sphere::buildVerticesSmooth()
             // vertex position
             x = xy * cosf(sectorAngle);             // r * cos(u) * cos(v)
             y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
-            addVertex(x, y, z);
 
             // normalized vertex normal
             nx = x * lengthInv;
             ny = y * lengthInv;
             nz = z * lengthInv;
+
             addNormal(nx, ny, nz);
 
             // vertex tex coord between [0, 1]
             s = (float)j / sectorCount;
             t = (float)i / stackCount;
             addTexCoord(s, t);
+
+            //Inicio - Processamento do heightmap
+            int index = round(t * (float)bmp.getHeight()) * bmp.getWidth() + round(s * (float)bmp.getWidth());
+            float height = -(data[index] / 255.0) + 1.0;
+
+            addVertex(x + nx * height/COEF_ALT, y + ny * height/COEF_ALT, z + nz * height/COEF_ALT);
         }
     }
 

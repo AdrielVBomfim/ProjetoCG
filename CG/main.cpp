@@ -33,7 +33,7 @@ Sphere *spherePtr;
 GLuint texId, texIdSun, texUniverse, texMoon;
 
 //Renderizacao do universo ao fundo
-Sphere universe(5, 100, 100, false);
+Sphere universe(5, 100, 100, true);
 
 //Variaveis de posição da câmera
 float posCameraX, posCameraY, posCameraZ;
@@ -58,7 +58,7 @@ bool decolar, pousar;
 
 //Argumento correspondente ao raio do planeta
 GLdouble arg1;
-//Argumentos correspondentes à posição x, y e z do Sol
+//Argumentos correspondentes �  posição x, y e z do Sol
 GLfloat luz_pontual[] = {1.0, 1.0, 1.0, 1.0};
 
 
@@ -451,8 +451,8 @@ int main(int argc, char** argv)
     ALT_MIN = arg1+0.005;
     ALT_MAX = arg1+0.05;
 
-
-    Sphere sphere1(arg1, 200, 200, false);    // radius, sectors, stacks, non-smooth (flat) shading
+    //numero de setores e pilhas ajustados para corresponderem às dimensoes do heightmap
+    Sphere sphere1(arg1, 1600, 800, true);    // radius, sectors, stacks, non-smooth (flat) shading
     spherePtr = &sphere1;
 
     glutInit(&argc, argv);
