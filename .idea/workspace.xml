@@ -13,7 +13,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c713bcb9-4c8f-4c8a-88e4-f0fd025b342b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CG/8k_earth_daymap.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CG/Sphere.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/CG/Sphere.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CG/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CG/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CG/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/CG/main.cpp" afterDir="false" />
     </list>
@@ -34,12 +34,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CG/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="39" column="17" lean-forward="true" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
-              <folding>
-                <element signature="e#276#294#0" expanded="true" />
-                <element signature="e#383#402#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="251">
+              <caret line="480" column="12" selection-start-line="480" selection-start-column="12" selection-end-line="480" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CG/Sphere.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="155" lean-forward="true" selection-start-line="155" selection-end-line="155" />
             </state>
           </provider>
         </entry>
@@ -53,6 +58,7 @@
       <find>teta</find>
       <find>angulo</find>
       <find>ALT_MAX</find>
+      <find>cout</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -61,6 +67,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/CG/Sphere.cpp" />
         <option value="$PROJECT_DIR$/CG/main.cpp" />
       </list>
     </option>
@@ -86,8 +93,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="CG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProjetoCG" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CG" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProjetoCG" type="462c0819:PsiDirectoryNode" />
+              <item name="CG" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -128,23 +150,25 @@
       <option name="presentableId" value="Default" />
       <updated>1563888784181</updated>
       <workItem from="1563888786008" duration="21701000" />
-      <workItem from="1564003665247" duration="6945000" />
+      <workItem from="1564003665247" duration="7544000" />
+      <workItem from="1565537520144" duration="614000" />
+      <workItem from="1565651930521" duration="5367000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28646000" />
+    <option name="totallyTimeSpent" value="35226000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25379092" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26177174" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16286644" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31270358" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -168,14 +192,17 @@
     <entry file="file://$PROJECT_DIR$/CG/CMakeCache.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/CG/Sphere.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="155" lean-forward="true" selection-start-line="155" selection-end-line="155" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CG/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="39" column="17" lean-forward="true" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
-          <folding>
-            <element signature="e#276#294#0" expanded="true" />
-            <element signature="e#383#402#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="251">
+          <caret line="480" column="12" selection-start-line="480" selection-start-column="12" selection-end-line="480" selection-end-column="12" />
         </state>
       </provider>
     </entry>

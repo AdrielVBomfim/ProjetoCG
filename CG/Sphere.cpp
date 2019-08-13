@@ -31,7 +31,7 @@
 // constants //////////////////////////////////////////////////////////////////
 const int MIN_SECTOR_COUNT = 3;
 const int MIN_STACK_COUNT  = 2;
-const int COEF_ALT = 80;         // Coeficiente de atenuação de altura
+const int COEF_ALT = 100;         // Coeficiente de atenuação de altura
 
 unsigned int maior;
 
@@ -244,12 +244,18 @@ void Sphere::buildVerticesSmooth()
     //Inicio - Leitura de heightmap
     Image::Bmp bmp;
 
+    //std::cout << "Oie\n";
     if(!bmp.read("media/textures/hi_res/earthGrayscale.bmp"))
         return;     // exit if failed load image
+
+    //std::cout << "Bit count ";
+    //std::cout <<  bmp.getBitCount();
 
     unsigned char *data = new unsigned char[bmp.getDataSize()];
     memcpy(data, bmp.getData(), bmp.getDataSize());
 
+
+    float auxX, auxY, auxZ;
     //Fim
 
     for(int i = 0; i <= stackCount; ++i)
@@ -284,7 +290,15 @@ void Sphere::buildVerticesSmooth()
             int index = round(t * (float)bmp.getHeight()) * bmp.getWidth() + round(s * (float)bmp.getWidth());
             float height = -(data[index] / 255.0) + 1.0;
 
-            addVertex(x + nx * height/COEF_ALT, y + ny * height/COEF_ALT, z + nz * height/COEF_ALT);
+            if(j == 0){
+                auxX = x + nx * height/COEF_ALT;
+                auxY = y + ny * height/COEF_ALT;
+                auxZ = z + nz * height/COEF_ALT;
+            }
+            if(j == sectorCount){
+                addVertex(auxX, auxY, auxZ);
+            }else
+                addVertex(x + nx * height/COEF_ALT, y + ny * height/COEF_ALT, z + nz * height/COEF_ALT);
         }
     }
 

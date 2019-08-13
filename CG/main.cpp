@@ -33,7 +33,7 @@ Sphere *spherePtr;
 GLuint texId, texIdSun, texUniverse, texMoon;
 
 //Renderizacao do universo ao fundo
-Sphere universe(5, 100, 100, true);
+Sphere universe(5, 100, 100, false);
 
 //Variaveis de posição da câmera
 float posCameraX, posCameraY, posCameraZ;
@@ -248,9 +248,9 @@ void spin(void){
     pontoRefY = eixo_trans2[1]*raioCamera;
     pontoRefZ = eixo_trans2[2]*raioCamera;
 
-    std::cout << sqrt(posCameraX*posCameraX+posCameraY*posCameraY+posCameraZ*posCameraZ) << "\n";
-    std::cout << "center: " << sqrt(pontoRefX*pontoRefX+pontoRefY*pontoRefY+pontoRefZ*pontoRefZ) << "\n";
-    std::cout << "vel: " << velocidade << "\n";
+    //std::cout << sqrt(posCameraX*posCameraX+posCameraY*posCameraY+posCameraZ*posCameraZ) << "\n";
+    //std::cout << "center: " << sqrt(pontoRefX*pontoRefX+pontoRefY*pontoRefY+pontoRefZ*pontoRefZ) << "\n";
+    //std::cout << "vel: " << velocidade << "\n";
 
     anguloMoon += velocidadeLua;
     if(anguloMoon >= 360)
@@ -477,5 +477,7 @@ int main(int argc, char** argv)
     glutMainLoop();
     engine->drop();
 
+
+    // teste
     return 0;
 }
