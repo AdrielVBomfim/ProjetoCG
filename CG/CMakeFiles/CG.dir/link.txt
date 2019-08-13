@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/CG.dir/main.cpp.o CMakeFiles/CG.dir/Sphere.cpp.o CMakeFiles/CG.dir/Bmp.cpp.o  -o CG  -L/home/vitor/Documentos/ProjetoCG/CG/bin -Wl,-rpath,/home/vitor/Documentos/ProjetoCG/CG/bin -lGL -lGLU -lglut -pthread -lIrrKlang 
