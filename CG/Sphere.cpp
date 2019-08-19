@@ -288,7 +288,7 @@ void Sphere::buildVerticesSmooth()
 
             //Inicio - Processamento do heightmap
             int index = round(t * (float)bmp.getHeight()) * bmp.getWidth() + round(s * (float)bmp.getWidth());
-            float height = -(data[index] / 255.0) + 1.0;
+            float height = data[index] / 255.0;
 
             if(j == 0){
                 auxX = x + nx * height/COEF_ALT;
