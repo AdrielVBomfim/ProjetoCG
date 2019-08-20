@@ -30,7 +30,7 @@
 irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
 
 Sphere *spherePtr;
-GLuint texId, texIdSun, texUniverse, texMoon;
+GLuint texId, texIdSun, texUniverse, texMoon,texCabine;
 
 //Renderizacao do universo ao fundo
 Sphere universe(5, 100, 100, false);
@@ -183,6 +183,50 @@ void desenhar_moon(){
     glDisable(GL_LIGHTING);
     glPopAttrib();
     glPopMatrix();
+}
+//Renderiza a cabine
+void desenhar_cabine(){
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();             
+    glLoadIdentity();   
+    int w = glutGet(GLUT_WINDOW_WIDTH);
+    int h = glutGet(GLUT_WINDOW_HEIGHT);
+    glOrtho( 0, w, 0, h, -1, 1 );
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glDisable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);  //blend
+    glDisable(GL_LIGHTING);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glEnable(GL_TEXTURE_2D); 
+    glBindTexture(GL_TEXTURE_2D, texCabine);
+ 
+    //glColor3f(1.0f,0.0f,0.0f);
+    glBegin(GL_QUADS);
+    glTexCoord2d(0.0, 0.0); glVertex2d(0.0, 0.0);
+    glTexCoord2d(1.0, 0.0); glVertex2d(w, 0.0);
+    glTexCoord2d(1.0, 1.0); glVertex2d(w, h);
+    glTexCoord2d(0.0, 1.0); glVertex2d(0.0, h);
+    glEnd();
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+
+    glDepthMask(GL_TRUE);   //blend
+    glDisable(GL_BLEND);    //blend
+
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();  
 }
 
 //Funcao que recalcula as posicoes do aviao
@@ -361,6 +405,7 @@ void display(void)
     desenhar_planeta();
     desenhar_universe();
     desenhar_moon();
+    desenhar_cabine();
 
     glPopMatrix();
     glutSwapBuffers();
@@ -480,6 +525,7 @@ int main(int argc, char** argv)
     texIdSun = loadTexture("media/textures/2k_sun.bmp", true);
     texMoon = loadTexture("media/textures/2k_moon.bmp", true);
     texUniverse = loadTexture("media/textures/hi_res/8k_stars_milky_way.bmp", true);
+    texCabine = loadTexture("media/textures/cabine.bmp", true);
 
     glutMainLoop();
     engine->drop();
