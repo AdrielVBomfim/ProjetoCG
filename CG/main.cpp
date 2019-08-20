@@ -256,7 +256,7 @@ void spin(void){
         }
     }
 
-    if(raioCamera >= ALT_MAX)
+    if(raioCamera >= ALT_MAX && !pousar)
         raioCamera = ALT_MAX + ALT_GRN;
 
     // Vetor na direcao do center da camera
