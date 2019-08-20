@@ -50,6 +50,7 @@ double rot_min = M_PI/180;
 double rot_min_up = (M_PI/180)*2;
 float ALT_MIN;
 float ALT_MAX;
+float ALT_GRN;
 float VEL_CRUZEIRO = 0.5;
 float VEL_MAX = 1;
 
@@ -195,8 +196,9 @@ void spin(void){
      }
      else {
          decolar = false;
-         raioCamera = ALT_MAX;
+         raioCamera = ALT_MAX + ALT_GRN;
      }
+
     }if(pousar){
         if(raioCamera > ALT_MIN) {
             raioCamera -= 0.001;
@@ -209,6 +211,9 @@ void spin(void){
             velocidade = 0;
         }
     }
+
+    if(raioCamera >= ALT_MAX)
+        raioCamera = ALT_MAX + ALT_GRN;
 
     // Vetor na direcao do center da camera
     GLdouble versorDesl[] = {pontoRefX-posCameraX, pontoRefY-posCameraY, pontoRefZ-posCameraZ};
@@ -249,6 +254,7 @@ void spin(void){
     pontoRefZ = eixo_trans2[2]*raioCamera;
 
     ALT_MIN = arg1 + 0.005 + spherePtr->getGroundLevel(eixo_trans[0] * arg1, eixo_trans[1] * arg1, eixo_trans[2] * arg1);
+    ALT_GRN = spherePtr->getGroundLevel(eixo_trans[0] * arg1, eixo_trans[1] * arg1, eixo_trans[2] * arg1);
     //std::cout << sqrt(posCameraX*posCameraX+posCameraY*posCameraY+posCameraZ*posCameraZ) << "\n";
     //std::cout << "center: " << sqrt(pontoRefX*pontoRefX+pontoRefY*pontoRefY+pontoRefZ*pontoRefZ) << "\n";
     //std::cout << "vel: " << velocidade << "\n";
