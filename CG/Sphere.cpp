@@ -33,7 +33,7 @@ const int MIN_SECTOR_COUNT = 3;
 const int MIN_STACK_COUNT  = 2;
 const int COEF_ALT = 100;         // Coeficiente de atenuação de altura
 
-unsigned int maior;
+float **heightMap;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -241,6 +241,12 @@ void Sphere::buildVerticesSmooth()
     float stackStep = PI / stackCount;
     float sectorAngle, stackAngle;
 
+    heightMap = new float*[stackCount];
+
+    for (int i = 0; i < stackCount; i++) {
+        heightMap[i] = new float[sectorCount];
+    }
+
     //Inicio - Leitura de heightmap
     Image::Bmp bmp;
 
@@ -297,8 +303,13 @@ void Sphere::buildVerticesSmooth()
             }
             if(j == sectorCount){
                 addVertex(auxX, auxY, auxZ);
-            }else
-                addVertex(x + nx * height/COEF_ALT, y + ny * height/COEF_ALT, z + nz * height/COEF_ALT);
+            }else {
+                addVertex(x + nx * height / COEF_ALT, y + ny * height / COEF_ALT, z + nz * height / COEF_ALT);
+
+                if(i != stackCount)
+                    heightMap[i][j] = sqrt(pow(x + nx * height / COEF_ALT, 2) + pow(y + ny * height / COEF_ALT, 2) + pow(z + nz * height / COEF_ALT, 2)) - radius;
+            }
+
         }
     }
 
@@ -341,7 +352,52 @@ void Sphere::buildVerticesSmooth()
     buildInterleavedVertices();
 }
 
+float Sphere::getGroundLevel(float x, float y, float z)
+{
+    int index_X, index_Y, index_X_busca, index_Y_busca;
+    float stackAngle, sectorAngle;
 
+    //printf("%f %f %f\n", x, y, z);
+
+    stackAngle = asinf(y / radius);      //z = radius * sinf(stackAngle);
+                                         //x = radius * cosf(stackAngle) * cosf(sectorAngle);
+    if(z >= 0)                           //y = radius * cosf(stackAngle) * sinf(sectorAngle);
+        sectorAngle = 2*M_PI - acosf(x / radius / cosf(stackAngle));
+    else
+        sectorAngle = 2*M_PI - (2*M_PI - acosf(x / radius / cosf(stackAngle)));
+
+
+    index_Y = round(((stackCount - 1) / M_PI) * (-stackAngle + M_PI/2));
+    index_X = round(((sectorCount - 1) / (2*M_PI)) * sectorAngle);
+
+    float resultado = heightMap[index_Y][index_X];
+
+    for(int i = -2; i <= 2; i++){
+
+        if(index_Y + i < 0)
+            index_Y_busca = stackCount + index_Y + i;
+        else if(index_Y + i >= stackCount)
+            index_Y_busca = index_Y + i - stackCount;
+        else
+            index_Y_busca = index_Y + i;
+
+        for(int j = -2; j <= 2; j++){
+
+            if(index_X + j < 0)
+                index_X_busca = sectorCount + index_X + j;
+            else if(index_X + j >= sectorCount)
+                index_X_busca = index_X + j - sectorCount;
+            else
+                index_X_busca = index_X + j;
+
+            if(heightMap[index_Y_busca][index_X_busca] > resultado) {
+                resultado = heightMap[index_Y_busca][index_X_busca];
+            }
+        }
+    }
+
+    return resultado;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // generate vertices with flat shading

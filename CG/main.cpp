@@ -248,6 +248,7 @@ void spin(void){
     pontoRefY = eixo_trans2[1]*raioCamera;
     pontoRefZ = eixo_trans2[2]*raioCamera;
 
+    ALT_MIN = arg1 + 0.005 + spherePtr->getGroundLevel(eixo_trans[0] * arg1, eixo_trans[1] * arg1, eixo_trans[2] * arg1);
     //std::cout << sqrt(posCameraX*posCameraX+posCameraY*posCameraY+posCameraZ*posCameraZ) << "\n";
     //std::cout << "center: " << sqrt(pontoRefX*pontoRefX+pontoRefY*pontoRefY+pontoRefZ*pontoRefZ) << "\n";
     //std::cout << "vel: " << velocidade << "\n";
