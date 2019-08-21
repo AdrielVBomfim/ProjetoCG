@@ -99,27 +99,6 @@ void desenhar_luz(){
     glPopMatrix();
 }
 
-
-//Desenha eixos xyz
-void desenhar_eixos(){
-    glEnable(GL_LIGHTING);
-    //não há efeitos de iluminação nos eixos
-    glLineWidth(3);
-    glBegin(GL_LINES);
-    glColor3f (1.0, 0.0, 0.0);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(1.0, 0.0, 0.0);
-
-    glColor3f (0.0, 1.0, 0.0);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(0.0, 1.0, 0.0);
-
-    glColor3f (0.0, 0.0, 1.0);
-    glVertex3f(0.0, 0.0, 0.0);
-    glVertex3f(0.0, 0.0, 1.0);
-    glEnd(); glDisable(GL_LIGHTING);
-}
-
 //Desenha o planeta
 void desenhar_planeta(){
     //MATERIAL
@@ -299,9 +278,6 @@ void spin(void){
 
     ALT_MIN = arg1 + 0.005 + spherePtr->getGroundLevel(eixo_trans[0] * arg1, eixo_trans[1] * arg1, eixo_trans[2] * arg1);
     ALT_GRN = spherePtr->getGroundLevel(eixo_trans[0] * arg1, eixo_trans[1] * arg1, eixo_trans[2] * arg1);
-    //std::cout << sqrt(posCameraX*posCameraX+posCameraY*posCameraY+posCameraZ*posCameraZ) << "\n";
-    //std::cout << "center: " << sqrt(pontoRefX*pontoRefX+pontoRefY*pontoRefY+pontoRefZ*pontoRefZ) << "\n";
-    //std::cout << "vel: " << velocidade << "\n";
 
     anguloMoon += velocidadeLua;
     if(anguloMoon >= 360)
@@ -317,14 +293,9 @@ void init(void)
     //configura iluminação
     iluminar();
 
-    // ativa teste de profundidade
-    // o que acontece se isso não for feito?
     glEnable(GL_DEPTH_TEST);
     glShadeModel (GL_SMOOTH);
 
-    //posCameraX = 0.3;
-    //posCameraY = 0.1;
-    //posCameraZ = 0;
 
     raioCamera = arg1 + 0.05;
 
@@ -401,7 +372,6 @@ void display(void)
     glutIdleFunc(spin);
 
     desenhar_luz();
-    //desenhar_eixos();
     desenhar_planeta();
     desenhar_universe();
     desenhar_moon();
@@ -413,7 +383,6 @@ void display(void)
 
 void reshape(int w, int h)
 {
-    //glViewport (0, 0, (GLsizei) w, (GLsizei) h);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
